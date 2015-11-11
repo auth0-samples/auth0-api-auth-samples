@@ -1,0 +1,19 @@
+{
+  "name": "organizer-nodejs",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Auth0",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.7.1",
+    "express": "^4.13.3",
+    "express-jwt": "^3.3.0",
+    "morgan": "^1.6.1",
+    "nconf": "^0.8.2",
+    "winston": "^2.1.0"
+  }
+}

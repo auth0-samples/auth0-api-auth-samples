@@ -1,0 +1,123 @@
+<html>
+  <head>
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootswatch/3.3.5/flatly/bootstrap.min.css">
+  </head>
+  <body>
+    <div class="jumbotron">
+      <div class="container text-center">
+        <h1>CalendarApp (implicit grant - jQuery)</h1>
+      </div>
+    </div>
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-12 col-md-9">
+          <h2>Authorization</h2>
+            <p>Request authorization from "Organizer" to access your appointments.</p>
+            <div>
+              <a href="{{ authorize_url }}" class="btn btn-info">Sign In with Organizer</a>
+            </div>
+          </h2>
+        </div>
+      </div>
+      <div id="organizer-api" class="row hidden">
+        <div class="col-sm-12 col-md-9">
+          <h2>Token</h2>
+          <p>Here is the <strong>access_token</strong> issued by the Authorization Server.</p>
+          <pre id="access-token"></pre>
+          <p>And these are the contents of the <strong>access_token</strong>.</p>
+          <pre id="access-token-contents"></pre>
+
+          <h2>Organizer API</h2>
+          <p>Now go ahead and try to call the Organizer API (the Resource Server). Remeber that the CalendarApp is only allowed to access your appointments and contacts.</p>
+          <button id="get-appointments" class="btn btn-success" style="margin-right: 10px;">Get Appointments from OrganizerApp</button>
+          <button id="get-contacts" class="btn btn-warning" style="margin-right: 10px;">Get Contacts from OrganizerApp</button>
+          <button id="get-tasks" class="btn btn-tasks" style="margin-right: 10px;">Get Tasks from OrganizerApp</button>
+          <pre id="api-response" class="hidden" style="margin-top: 10px;"></pre>
+        </div>
+      </div>
+    </div>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.11.3/jquery.js"></script>
+    <script src="//cdn.auth0.com/w2/auth0-6.js"></script>
+    <script type="text/javascript">
+      var auth0 = new Auth0({
+        domain: '{{ auth0_domain }}',
+        clientID: '{{ auth0_client_id }}',
+        callbackURL: '{{ callback_url }}',
+        callbackOnLocationHash: true
+      });
+
+      function getParameterByName(name) {
+        var match = RegExp('[#&]' + name + '=([^&]*)').exec(window.location.hash);
+        return match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+      }
+
+      function getAccessToken() {
+        return getParameterByName('access_token');
+      }
+
+      $(function () {
+        var access_token = getAccessToken();
+        if (access_token) {
+          $('#organizer-api').removeClass('hidden');
+          $('#access-token').text(access_token);
+          $('#access-token-contents').text(JSON.stringify(auth0.decodeJwt(access_token), null, 2));
+          $('#get-appointments').click(function(e) {
+            e.preventDefault();
+
+            $.ajax({
+                cache: false,
+                url: "http://localhost:7001/api/appointments",
+                headers: { "Authorization": "Bearer " + access_token }
+            })
+            .done(function(data) {
+              $('#api-response').text(JSON.stringify(data, null, 2));
+            })
+            .fail(function(xhr) {
+              $('#api-response').text(JSON.stringify(xhr.responseJSON, null, 2));
+            })
+            .always(function() {
+              $('#api-response').removeClass('hidden');
+            });
+          });
+          $('#get-contacts').click(function(e) {
+            e.preventDefault();
+
+            $.ajax({
+                cache: false,
+                url: "http://localhost:7001/api/contacts",
+                headers: { "Authorization": "Bearer " + access_token }
+            })
+            .done(function(data) {
+              $('#api-response').text(JSON.stringify(data, null, 2));
+            })
+            .fail(function(xhr) {
+              $('#api-response').text(JSON.stringify(xhr.responseJSON, null, 2));
+            })
+            .always(function() {
+              $('#api-response').removeClass('hidden');
+            });
+          });
+          $('#get-tasks').click(function(e) {
+            e.preventDefault();
+
+            $.ajax({
+                cache: false,
+                url: "http://localhost:7001/api/tasks",
+                headers: { "Authorization": "Bearer " + access_token }
+            })
+            .done(function(data) {
+              $('#api-response').text(JSON.stringify(data, null, 2));
+            })
+            .fail(function(xhr) {
+              $('#api-response').text(JSON.stringify(xhr.responseJSON, null, 2));
+            })
+            .always(function() {
+              $('#api-response').removeClass('hidden');
+            });
+          });
+        }
+      });
+    </script>
+  </body>
+</html>
