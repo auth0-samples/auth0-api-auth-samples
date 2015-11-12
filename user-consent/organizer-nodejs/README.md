@@ -19,8 +19,9 @@ More information is available [here](https://auth0.com/docs/api-authn-authz#tuto
 
 ## Running the sample
 
+ 1. Store the public key in the root: `curl -o key.pem https://AUTH_DOMAIN/pem`
  1. Update the `config.json` file with your own settings
  2. Run `npm install`
- 3. Run `node index`
+ 3. Run `node server`
  4. The API will be listening on http://localhost:7001
  5. Now use one of the clients to connect to the API

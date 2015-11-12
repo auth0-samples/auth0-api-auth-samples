@@ -3,7 +3,7 @@
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootswatch/3.3.5/flatly/bootstrap.min.css">
   </head>
-  <body>
+  <body style="margin-bottom: 50px;">
     <div class="jumbotron">
       <div class="container text-center">
         <h1>CalendarApp (implicit grant - jQuery)</h1>
@@ -62,12 +62,13 @@
           $('#organizer-api').removeClass('hidden');
           $('#access-token').text(access_token);
           $('#access-token-contents').text(JSON.stringify(auth0.decodeJwt(access_token), null, 2));
+
           $('#get-appointments').click(function(e) {
             e.preventDefault();
 
             $.ajax({
                 cache: false,
-                url: "http://localhost:7001/api/appointments",
+                url: "{{ organizer_base_url }}/api/appointments",
                 headers: { "Authorization": "Bearer " + access_token }
             })
             .done(function(data) {
@@ -80,12 +81,13 @@
               $('#api-response').removeClass('hidden');
             });
           });
+
           $('#get-contacts').click(function(e) {
             e.preventDefault();
 
             $.ajax({
                 cache: false,
-                url: "http://localhost:7001/api/contacts",
+                url: "{{ organizer_base_url }}/api/contacts",
                 headers: { "Authorization": "Bearer " + access_token }
             })
             .done(function(data) {
@@ -98,12 +100,13 @@
               $('#api-response').removeClass('hidden');
             });
           });
+
           $('#get-tasks').click(function(e) {
             e.preventDefault();
 
             $.ajax({
                 cache: false,
-                url: "http://localhost:7001/api/tasks",
+                url: "{{ organizer_base_url }}/api/tasks",
                 headers: { "Authorization": "Bearer " + access_token }
             })
             .done(function(data) {

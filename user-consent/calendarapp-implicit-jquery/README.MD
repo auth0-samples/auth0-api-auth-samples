@@ -22,6 +22,6 @@ More information is available [here](https://auth0.com/docs/api-authn-authz#tuto
 
  1. Update the `config.json` file with your own settings
  2. Run `npm install`
- 3. Run `node index`
+ 3. Run `node server`
  4. The web application will start http://localhost:7002
  5. Sign in and try to get your data from the Resource Server

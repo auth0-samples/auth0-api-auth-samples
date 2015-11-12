@@ -19,7 +19,8 @@ nconf.env()
   .file({ file: './config.json' })
 	.defaults({
 		PORT: 7002,
-    CALLBACK_URL: "http://localhost:7002"
+    CALLBACK_URL: "http://localhost:7002",
+    ORGANIZER_BASE_URL: "http://localhost:7001"
 	});
 
 var callback_url = nconf.get('CALLBACK_URL');
@@ -35,6 +36,7 @@ app.get('/', function(req, res, next) {
   res.render('index', {
     callback_url: callback_url,
     authorize_url: authorize_url,
+    organizer_base_url: nconf.get('ORGANIZER_BASE_URL'),
     auth0_domain: nconf.get('AUTH0_DOMAIN'),
     auth0_client_id: nconf.get('AUTH0_CLIENT_ID')
   });
