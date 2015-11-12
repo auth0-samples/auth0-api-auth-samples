@@ -1,0 +1,20 @@
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12 col-md-9">
+      <h2>Actions</h2>
+      <a href="/appointments" class="btn btn-success" style="margin-right: 10px;">Get Appointments from OrganizerApp</a>
+      <a href="/contacts" class="btn btn-warning" style="margin-right: 10px;">Get Contacts from OrganizerApp</a>
+      <a href="/tasks" class="btn btn-info" style="margin-right: 10px;">Get Tasks from OrganizerApp</a>
+
+      <h2>User</h2>
+      <p>Here is the current user object:</p>
+      <pre>{{ user_json }}</pre>
+
+      <h2>Token</h2>
+      <p>Here is the <strong>access_token</strong> issued by the Authorization Server.</p>
+      <pre>{{ access_token }}</pre>
+      <p>And these are the contents of the <strong>access_token</strong>.</p>
+      <pre>{{ access_token_payload }}</pre>
+    </div>
+  </div>
+</div>

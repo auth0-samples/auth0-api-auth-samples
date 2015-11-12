@@ -10,7 +10,6 @@ app.use(morgan(':method :url :status :response-time ms - :res[content-length]', 
 	stream: logger.stream
 }));
 
-app.use(express.static('public'));
 app.engine('hbs', hbs.express4());
 app.set('view engine', 'hbs');
 app.set('views', path.join(__dirname, 'views'));

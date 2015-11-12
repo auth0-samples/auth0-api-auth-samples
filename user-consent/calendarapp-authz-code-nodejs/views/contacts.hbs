@@ -1,0 +1,14 @@
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12 col-md-9">
+      <h2>Actions</h2>
+      <a href="/account" class="btn btn-default" style="margin-right: 10px;">My Account</a>
+      <a href="/appointments" class="btn btn-success" style="margin-right: 10px;">Get Appointments from OrganizerApp</a>
+      <a href="/tasks" class="btn btn-info" style="margin-right: 10px;">Get Tasks from OrganizerApp</a>
+
+      <h2>Contacts</h2>
+      <p>These are the contacts for {{ user.id }} we received from Oranizer (by calling the API on your behalf)</p>
+      <pre>{{ contacts }}</pre>
+    </div>
+  </div>
+</div>
