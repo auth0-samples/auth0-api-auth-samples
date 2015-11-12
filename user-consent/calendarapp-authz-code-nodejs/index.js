@@ -44,7 +44,7 @@ passport.use(new oauth2.Strategy({
   tokenURL: 'https://' + nconf.get('AUTH0_DOMAIN') + '/oauth/token',
   clientID: nconf.get('AUTH0_CLIENT_ID'),
   clientSecret: nconf.get('AUTH0_CLIENT_SECRET'),
-  callbackURL: "http://localhost:7002/auth/organizer/callback",
+  callbackURL: "http://localhost:7003/auth/organizer/callback",
   skipUserProfile: true
 }, function(accessToken, refreshToken, profile, done) {
   var payload = jwt.decode(accessToken);
@@ -168,7 +168,7 @@ app.get('/auth/organizer/callback',
 /*
  * Start server.
  */
-http.createServer(app).listen(7002, function() {
-	logger.info('CalendarApp listening on: http://localhost:7002/');
+http.createServer(app).listen(7003, function() {
+	logger.info('CalendarApp listening on: http://localhost:7003/');
   logger.info(' > Mode: client - authorization code grant');
 });
