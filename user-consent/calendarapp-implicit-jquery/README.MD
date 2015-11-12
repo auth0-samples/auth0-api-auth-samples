@@ -1,5 +1,7 @@
 # Client: CalendarApp (jQuery - Implicit Grant)
 
+Demo: http://api-authz-calendar-implicit.azurewebsites.net/
+
 ## Configuration
 
 Before running this sample you must first make sure your Resource Server is running and you also need to define the Client in Auth0:
