@@ -27,7 +27,11 @@ app.set('views', path.join(__dirname, 'views'));
 
 var nconf = require('nconf');
 nconf.env()
-  .file({ file: './config.json' });
+  .file({ file: './config.json' })
+	.defaults({
+		PORT: 7003,
+    CALLBACK_URL: "http://localhost:7003/auth/organizer/callback"
+	});
 
 /*
  * Configure passport.
@@ -45,7 +49,7 @@ passport.use(new oauth2.Strategy({
   tokenURL: 'https://' + nconf.get('AUTH0_DOMAIN') + '/oauth/token',
   clientID: nconf.get('AUTH0_CLIENT_ID'),
   clientSecret: nconf.get('AUTH0_CLIENT_SECRET'),
-  callbackURL: "http://localhost:7003/auth/organizer/callback",
+  callbackURL: nconf.get('CALLBACK_URL'),
   skipUserProfile: true
 }, function(accessToken, refreshToken, profile, done) {
   var payload = jwt.decode(accessToken);
@@ -169,7 +173,7 @@ app.get('/auth/organizer/callback',
 /*
  * Start server.
  */
-http.createServer(app).listen(7003, function() {
-  logger.info('CalendarApp listening on: http://localhost:7003/');
+http.createServer(app).listen(nconf.get('PORT'), function() {
+  logger.info('CalendarApp listening on: http://localhost:' + nconf.get('PORT'));
   logger.info(' > Mode: client - authorization code grant');
 });

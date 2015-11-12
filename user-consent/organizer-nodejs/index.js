@@ -15,7 +15,10 @@ app.use(morgan(':method :url :status :response-time ms - :res[content-length]', 
 
 var nconf = require('nconf');
 nconf.env()
-  .file({ file: './config.json' });
+  .file({ file: './config.json' })
+	.defaults({
+		PORT: 7001
+	});
 
 /*
  * Middleware that will validate the incoming access token.
@@ -80,6 +83,6 @@ app.use(function(err, req, res, next) {
 /*
  * Start server.
  */
-http.createServer(app).listen(7001, function() {
-  logger.info('Organizer API (Resource Server) listening on: http://localhost:7001');
+http.createServer(app).listen(nconf.get('PORT'), function() {
+  logger.info('Organizer API (Resource Server) listening on: http://localhost:' + nconf.get('PORT'));
 });

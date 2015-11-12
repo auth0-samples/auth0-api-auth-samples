@@ -16,9 +16,13 @@ app.set('views', path.join(__dirname, 'views'));
 
 var nconf = require('nconf');
 nconf.env()
-  .file({ file: './config.json' });
+  .file({ file: './config.json' })
+	.defaults({
+		PORT: 7002,
+    CALLBACK_URL: "http://localhost:7002"
+	});
 
-var callback_url = "http://localhost:7002";
+var callback_url = nconf.get('CALLBACK_URL');
 var authorize_url = "https://{AUTH0_DOMAIN}/i/oauth2/authorize?scope=appointments%20contacts&response_type=token&client_id={AUTH0_CLIENT_ID}&redirect_uri={CALLBACK_URL}"
   .replace(/({AUTH0_DOMAIN})/g, nconf.get('AUTH0_DOMAIN'))
   .replace(/({AUTH0_CLIENT_ID})/g, nconf.get('AUTH0_CLIENT_ID'))
@@ -39,6 +43,6 @@ app.get('/', function(req, res, next) {
 /*
  * Start server.
  */
-http.createServer(app).listen(7002, function() {
-  logger.info('CalendarApp (Client) listening on: http://localhost:7002/');
+http.createServer(app).listen(nconf.get('PORT'), function() {
+  logger.info('CalendarApp (Client) listening on: http://localhost:' + nconf.get('PORT'));
 });
