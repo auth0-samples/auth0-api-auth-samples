@@ -10,7 +10,7 @@ var express = require('express');
 var app = express();
 app.use(cors());
 app.use(morgan(':method :url :status :response-time ms - :res[content-length]', {
-	stream: logger.stream
+  stream: logger.stream
 }));
 
 var nconf = require('nconf');
@@ -43,24 +43,24 @@ var requireScope = function(expected_scope){
  */
 app.use('/api', jwtCheck, function(req, res, next) {
   if (req.user) {
-		logger.debug('Current user: ' + req.user.sub + ' (scope=' + req.user.scope + ')');
-	}
+    logger.debug('Current user: ' + req.user.sub + ' (scope=' + req.user.scope + ')');
+  }
   next();
 });
 app.get('/api/appointments', requireScope('appointments'), function(req, res, next) {
-	res.json([
+  res.json([
     { subject: 'Meet with Fabrikam', date: '2015-11-20' },
     { subject: 'Follow up on deal with Contoso', date: '2015-12-03' }
   ]);
 });
 app.get('/api/contacts', requireScope('contacts'), function(req, res, next) {
-	res.json([
+  res.json([
     { name: 'John Doe', email: 'john.doe@gmail.com' },
     { name: 'Jane Doe', email: 'jane.doe@gmail.com' }
   ]);
 });
 app.get('/api/tasks', requireScope('tasks'), function(req, res, next) {
-	res.json([
+  res.json([
     { title: 'Finish blog post', due_date: '2015-12-05' }
   ]);
 });
@@ -81,5 +81,5 @@ app.use(function(err, req, res, next) {
  * Start server.
  */
 http.createServer(app).listen(7001, function() {
-	logger.info('Organizer API (Resource Server) listening on: http://localhost:7001');
+  logger.info('Organizer API (Resource Server) listening on: http://localhost:7001');
 });

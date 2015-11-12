@@ -16,11 +16,11 @@ var app = express();
 app.use(cookieParser());
 app.use(session({ secret: 'shhhhhhhhh' }));
 app.use(morgan(':method :url :status :response-time ms - :res[content-length]', {
-	stream: logger.stream
+  stream: logger.stream
 }));
 
 app.engine('hbs', hbs.express4({
-	defaultLayout: path.join(__dirname, 'views/layout/default.hbs')
+  defaultLayout: path.join(__dirname, 'views/layout/default.hbs')
 }));
 app.set('view engine', 'hbs');
 app.set('views', path.join(__dirname, 'views'));
@@ -28,15 +28,16 @@ app.set('views', path.join(__dirname, 'views'));
 var nconf = require('nconf');
 nconf.env()
   .file({ file: './config.json' });
+
 /*
  * Configure passport.
  */
 passport.serializeUser(function(user, done) {
-	console.log('serialize user');
+  console.log('serialize user');
   done(null, user);
 });
 passport.deserializeUser(function(user, done) {
-	console.log('deserialize user');
+  console.log('deserialize user');
   done(null, user);
 });
 passport.use(new oauth2.Strategy({
@@ -83,7 +84,7 @@ app.get('/', function(req, res, next) {
 
 app.get('/account', requiresLogin, function(req, res, next) {
   res.render('account', {
-		user: req.user,
+    user: req.user,
     user_json: JSON.stringify(req.user, null, 2),
     access_token: req.user.access_token,
     access_token_payload: JSON.stringify(jwt.decode(req.user.access_token), null, 2)
@@ -91,63 +92,63 @@ app.get('/account', requiresLogin, function(req, res, next) {
 });
 
 app.get('/appointments', requiresLogin, function(req, res, next) {
-	request({
-		url: nconf.get('ORGANIZER_BASE_URL') + '/api/appointments',
-		json: true,
-		headers: {
-			'Authorization': 'Bearer ' + req.user.access_token
-		}
-	}, function(error, response, body) {
-		if (error) {
-			logger.error(error);
-			return res.status(500);
-		} else {
-		  res.render('appointments', {
-				user: req.user,
-				appointments: JSON.stringify(body, null, 2)
-		  });
-		}
-	});
+  request({
+    url: nconf.get('ORGANIZER_BASE_URL') + '/api/appointments',
+    json: true,
+    headers: {
+      'Authorization': 'Bearer ' + req.user.access_token
+    }
+  }, function(error, response, body) {
+    if (error) {
+      logger.error(error);
+      return res.status(500);
+    } else {
+      res.render('appointments', {
+        user: req.user,
+        appointments: JSON.stringify(body, null, 2)
+      });
+    }
+  });
 });
 
 app.get('/contacts', requiresLogin, function(req, res, next) {
-	request({
-		url: nconf.get('ORGANIZER_BASE_URL') + '/api/contacts',
-		json: true,
-		headers: {
-			'Authorization': 'Bearer ' + req.user.access_token
-		}
-	}, function(error, response, body) {
-		if (error) {
-			logger.error(error);
-			return res.status(500);
-		} else {
-		  res.render('contacts', {
-				user: req.user,
-				contacts: JSON.stringify(body, null, 2)
-		  });
-		}
-	});
+  request({
+    url: nconf.get('ORGANIZER_BASE_URL') + '/api/contacts',
+    json: true,
+    headers: {
+      'Authorization': 'Bearer ' + req.user.access_token
+    }
+  }, function(error, response, body) {
+    if (error) {
+      logger.error(error);
+      return res.status(500);
+    } else {
+      res.render('contacts', {
+        user: req.user,
+        contacts: JSON.stringify(body, null, 2)
+      });
+    }
+  });
 });
 
 app.get('/tasks', requiresLogin, function(req, res, next) {
-	request({
-		url: nconf.get('ORGANIZER_BASE_URL') + '/api/tasks',
-		json: true,
-		headers: {
-			'Authorization': 'Bearer ' + req.user.access_token
-		}
-	}, function(error, response, body) {
-		if (error) {
-			logger.error(error);
-			return res.status(500);
-		} else {
-		  res.render('tasks', {
-				user: req.user,
-				tasks: JSON.stringify(body, null, 2)
-		  });
-		}
-	});
+  request({
+    url: nconf.get('ORGANIZER_BASE_URL') + '/api/tasks',
+    json: true,
+    headers: {
+      'Authorization': 'Bearer ' + req.user.access_token
+    }
+  }, function(error, response, body) {
+    if (error) {
+      logger.error(error);
+      return res.status(500);
+    } else {
+      res.render('tasks', {
+        user: req.user,
+        tasks: JSON.stringify(body, null, 2)
+      });
+    }
+  });
 });
 
 /*
@@ -169,6 +170,6 @@ app.get('/auth/organizer/callback',
  * Start server.
  */
 http.createServer(app).listen(7003, function() {
-	logger.info('CalendarApp listening on: http://localhost:7003/');
+  logger.info('CalendarApp listening on: http://localhost:7003/');
   logger.info(' > Mode: client - authorization code grant');
 });
