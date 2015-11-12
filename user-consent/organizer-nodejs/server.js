@@ -34,7 +34,7 @@ var jwtCheck = jwt({
  */
 var requireScope = function(expected_scope){
   return function (req, res, next){
-    if (!req.user || !req.user.scope.includes(expected_scope)){
+    if (!req.user || req.user.scope.split(' ').indexOf(expected_scope) < 0) {
       return next(new Error('Cannot perform action. Missing scope ' + expected_scope));
     }
     next();
