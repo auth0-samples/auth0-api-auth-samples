@@ -1,0 +1,4 @@
+{
+  "AUTH0_DOMAIN": "YOUR_DOMAIN",
+  "RESOURCE_SERVER": "urn:worldmappers"
+}

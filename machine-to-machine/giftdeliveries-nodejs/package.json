@@ -1,0 +1,19 @@
+{
+  "name": "giftdeliveries-nodejs",
+  "version": "1.0.0",
+  "description": "Sample client for the Worldmappers API",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "auth0"
+  ],
+  "author": "Auth0",
+  "license": "MIT",
+  "dependencies": {
+    "nconf": "^0.8.4",
+    "request": "^2.72.0",
+    "winston": "^2.2.0"
+  }
+}

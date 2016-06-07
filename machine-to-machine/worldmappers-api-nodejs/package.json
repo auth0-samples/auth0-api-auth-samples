@@ -1,0 +1,24 @@
+{
+  "name": "worldmappers-nodejs",
+  "version": "1.0.0",
+  "description": "Sample Resource Server",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "auth0"
+  ],
+  "author": "Auth0",
+  "license": "MIT",
+  "dependencies": {
+    "cors": "^2.7.1",
+    "express": "^4.13.4",
+    "express-jwt": "^3.4.0",
+    "morgan": "^1.7.0",
+    "ms": "^0.7.1",
+    "nconf": "^0.8.4",
+    "request": "^2.72.0",
+    "winston": "^2.2.0"
+  }
+}
